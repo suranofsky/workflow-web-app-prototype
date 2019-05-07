@@ -1,5 +1,5 @@
 This project was a proof of concept I created to fulfill a need for a workflow
-application.  Libraries used in this project (outside of Java):
+application.  Libraries I used in this project (outside of Java):
 
 https://bulma.io/ (CSS)
 https://jquery.com/ (UI)
