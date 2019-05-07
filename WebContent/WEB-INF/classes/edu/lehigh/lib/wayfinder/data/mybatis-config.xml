@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+     
+ 
+ <settings>
+  <setting name="logImpl" value="STDOUT_LOGGING"/>
+ </settings>
+ 
+ 
+ <typeAliases>  
+  <typeAlias alias="User" type="edu.lehigh.lib.wayfinder.models.User"/>
+  <typeAlias alias="Process" type="edu.lehigh.lib.wayfinder.models.Process"/>
+  <typeAlias alias="WipProcessData" type="edu.lehigh.lib.wayfinder.models.WipProcessData"/>
+  <typeAlias alias="Task" type="edu.lehigh.lib.wayfinder.models.Task"/> 
+  <typeAlias alias="Wip" type="edu.lehigh.lib.wayfinder.models.Wip"/> 
+  <typeAlias alias="ProcessData" type="edu.lehigh.lib.wayfinder.models.ProcessData"/> 
+   <typeAlias alias="Log" type="edu.lehigh.lib.wayfinder.models.Log"/> 
+ </typeAliases>
+ 
+ 
+ <environments default="development">
+     
+   
+ <environment id="development">
+   <transactionManager type="JDBC"/>
+   <dataSource type="UNPOOLED">
+    <property name="driver" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost:3306/dbname?autoReconnect=true"/>
+    <!--<property name="poolPingEnabled" value="true" />--> 
+    <!--<property name="poolPingQuery" value="SELECT 1"/>-->
+	<property name="username" value="redacted"/>
+    <property name="password" value="redacted"/>
+   </dataSource>
+  </environment>
+ </environments>
+ 
+ <mappers>
+  <mapper resource="edu/lehigh/lib/wayfinder/data/UserMapper.xml"/>
+  <mapper resource="edu/lehigh/lib/wayfinder/data/ProcessMapper.xml"/>
+  <mapper resource="edu/lehigh/lib/wayfinder/data/WipProcessDataMapper.xml"/>
+  <mapper resource="edu/lehigh/lib/wayfinder/data/TaskMapper.xml"/>
+  <mapper resource="edu/lehigh/lib/wayfinder/data/WipMapper.xml"/>
+  <mapper resource="edu/lehigh/lib/wayfinder/data/ProcessDataMapper.xml"/>
+  <mapper resource="edu/lehigh/lib/wayfinder/data/LogMapper.xml"/>
+ </mappers>
+ 
+</configuration>

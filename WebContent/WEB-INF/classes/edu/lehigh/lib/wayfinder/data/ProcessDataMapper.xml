@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.lehigh.lib.wayfinder.data.ProcessDataMapper">
+
+
+<resultMap id="processDataMap" type="ProcessData" >  
+        <id column="id" property="id"/>  
+        <result column="accountId" property="accountId"/>  
+        <result column="processId" property="processId"/>  
+        <collection property="keys" ofType="String" javaType="List">
+          <result column="processkey"/>
+        </collection>
+ </resultMap>
+ 
+
+<select id="getProcessDataKeys" parameterType="ProcessData" resultMap="processDataMap">
+	select processkey from processdata where accountId = #{accountId} and processId = #{processId}
+</select>
+
+
+</mapper>

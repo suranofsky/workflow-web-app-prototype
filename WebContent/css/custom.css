@@ -1,0 +1,32 @@
+  .navbar>.container .navbar-brand,
+  .container>.navbar .navbar-brand {
+    margin-left: -1rem;
+  }
+
+  .navbar>.container .navbar-menu,
+  .container>.navbar .navbar-menu {
+    margin-right: -1rem;
+  }
+
+
+  .right-table th {
+    text-align: right !important;
+    vertical-align: middle;
+  }
+
+  .right-table td {
+    text-align: right !important;
+    vertical-align: middle;
+  }
+  
+  .is-primary {
+      background-color: #dff0d8 !important;
+      border-color: #d0e9c6!important;
+      color: #3c763d !important;
+  }
+  
+  .is-danger {
+  	background-color: #f2dede !important;
+    border-color: #ebcccc !important;
+    color: #a94442 !important;
+  }

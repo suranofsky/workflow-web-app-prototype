@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.lehigh.lib.wayfinder.data.TaskMapper">
+
+
+<resultMap id="taskMap" type="Task" >  
+        <id column="id" property="id"/>  
+        <result column="accountId" property="accountId"/>  
+        <result column="title" property="title"/>  
+        <result column="description" property="description"/>
+		<result column="sequence" property="sequence"/>
+ </resultMap>
+ 
+
+<select id="getTaskListForProcess" parameterType="String" resultMap="taskMap">
+	select * from task where accountId = #{param1} 
+	and processId = #{param2}
+	order by sequence
+</select>
+
+<select id="getTaskById" parameterType="String" resultMap="taskMap">
+	select * from task where id = #{param1}
+</select>
+
+<insert id="createTask" parameterType = "Task" useGeneratedKeys='true' keyProperty='id'>
+  insert into task (processId, accountId, sequence, title, description, createDate, updateDate) 
+  values (#{processId}, #{accountId}, #{sequence}, #{title}, #{description},)
+</insert>
+
+<update id="updateTask" parameterType = "Process" >
+  update task set
+    title = #{title},
+    description = #{description},
+    sequence = #{sequence}
+  where id = #{id}
+</update>
+
+<delete id="deleteTask">
+  delete from task where id = #{id}
+</delete>
+
+
+</mapper>

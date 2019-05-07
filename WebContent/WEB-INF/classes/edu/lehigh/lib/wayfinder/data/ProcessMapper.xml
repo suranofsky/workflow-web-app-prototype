@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.lehigh.lib.wayfinder.data.ProcessMapper">
+
+
+<resultMap id="processMap" type="Process" >  
+        <id column="id" property="id"/>  
+        <result column="accountId" property="accountId"/>  
+        <result column="title" property="title"/>  
+        <result column="description" property="description"/>
+        <result column="createDate" property="createDate"/>
+        <result column="updateDate" property="updateDate"/>
+ </resultMap>
+ 
+
+<select id="getProcessListForAccount" parameterType="String" resultMap="processMap">
+	select * from process where accountId = #{param1}
+</select>
+
+<select id="getProcessById" parameterType="String" resultMap="processMap">
+	select * from process where id = #{param1}
+</select>
+
+<insert id="createProcessForAccount" parameterType = "Process" useGeneratedKeys='true' keyProperty='id'>
+  insert into process (accountId, title, description, createDate, updateDate) 
+  values (#{accountId}, #{title}, #{description}, #{createDate}, #{updateDate})
+</insert>
+
+<update id="updateProcess" parameterType = "Process" >
+  update process set
+    title = #{title},
+    description = #{description},
+    updateDate = now()
+  where id = #{id}
+</update>
+
+<delete id="deleteProcess" parameterType='int'>
+  delete from process where id = #{id}
+</delete>
+
+</mapper>

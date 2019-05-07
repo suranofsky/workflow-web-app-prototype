@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.lehigh.lib.wayfinder.data.WipMapper">
+
+
+<resultMap id="wipMap" type="Wip" >  
+        <id column="wipid" property="id"/>  
+        <result column="accountId" property="accountId"/>  
+        <result column="processId" property="processId"/>  
+        <result column="currentTaskId" property="currentTaskId"/>
+        <result column="createdate" property="createDate"/>
+</resultMap>
+
+<resultMap id="wipWithDataMap" type="Wip" extends="wipMap">
+    <collection property="data" ofType="WipProcessData" resultMap="edu.lehigh.lib.wayfinder.data.WipProcessDataMapper.wipProcessDataMap" />
+</resultMap>
+
+
+ <select id="getWorkInProgress" parameterType="String" resultMap="wipWithDataMap">
+	select wip.id as wipid,wipprocessdata.processkey,wipprocessdata.value,wip.createdate from wip
+	join wipprocessdata on wipId = wip.id
+	inner join task t on t.id = wip.currentTaskId
+	where wip.accountId = #{param1}
+	and wip.processId = #{param2}
+	and currentTaskId = #{param3}
+</select>
+
+ <select id="getWip" parameterType="String" resultMap="wipWithDataMap">
+	select wip.id as wipid,wipprocessdata.processkey,
+	wipprocessdata.value,
+	wip.processId,
+	wip.currentTaskId
+	from wip
+	join wipprocessdata on wipId = wip.id
+	inner join task t on t.id = wip.currentTaskId
+	where wip.id = #{param1}
+	and wip.accountId = #{param2}
+</select>
+
+<insert id="insertWip" parameterType="Wip" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	insert into wip
+	set processId = #{processId},
+	accountId = #{accountId},
+	currentTaskId = #{currentTaskId}
+	<selectKey keyProperty="id" resultType="int" order="AFTER">
+        SELECT LAST_INSERT_ID();
+    </selectKey>
+</insert>
+
+
+
+<select id="getTaskSummary"  resultType="hashmap">
+	select currentTaskId, MIN(wip.createDate) as createDate,task.title, task.sequence,count(*) as count from wip 
+	join task on task.id = wip.currentTaskId
+	where 
+	task.accountid = 1
+	AND
+	task.processid = 1 
+	GROUP BY currentTaskId
+	order by task.sequence
+</select>
+
+
+<update id="updateWipStatus" parameterType="String">
+	update wip
+	set currentTaskId = #{param1}
+	where id = #{param2}
+</update>
+
+
+
+
+ 
+ 
+
+</mapper>

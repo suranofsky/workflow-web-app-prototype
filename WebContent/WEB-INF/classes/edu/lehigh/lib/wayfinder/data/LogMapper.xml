@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.lehigh.lib.wayfinder.data.LogMapper">
+
+
+<resultMap id="logMap" type="Log" >  
+        <id column="id" property="id"/>  
+        <result column="userid" property="userid"/>  
+        <result column="newStatus" property="newStatus"/>  
+        <result column="updatedDate" property="updatedDate"/>
+        <result column="wipid" property="wipId"/>
+</resultMap>
+
+<insert id="insertLogRow" parameterType="Log">
+	insert into logging values(null,#{uuid},#{userid},#{updatedDate},#{wipId},#{oldStatus},#{newStatus},#{accountId})
+</insert>
+
+<select id="getLogsForWip" parameterType="int" resultMap="logMap">
+	select * from logging where wipid = #{param1}
+</select>
+
+<select id="getLogsForDisplayByWipId" parameterType="int" resultMap="logMap">
+select userid,updatedDate ,
+task.title as newStatus
+from logging
+join task on task.id = logging.newstatus
+where wipid = #{param1}
+order by updatedDate desc
+
+</select>
+
+
+</mapper>
