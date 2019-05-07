@@ -1,9 +1,6 @@
 This project was a proof of concept I created to fulfill a need for a workflow
-<<<<<<< HEAD
-application.  Libraries I used in this project (outside of Java):
-=======
 application.  <br>
->>>>>>> master
+
 
 Libraries that I used in for this project
 
